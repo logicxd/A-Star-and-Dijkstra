@@ -15,14 +15,14 @@ import logging
 
 # setup AStar logger
 logger = logging.getLogger('AStar')
-logger.setLevel(logging.WARNING)    
-#logger.setLevel(logging.DEBUG)      
+logger.setLevel(logging.WARNING)  
+logger.setLevel(logging.DEBUG)      
 
 # setup test logger
-logger = logging.getLogger('test')
-logger.setLevel(logging.WARNING)    
-logger.setLevel(logging.INFO)  
-#logger.setLevel(logging.DEBUG)
+test_logger = logging.getLogger('test')
+#test_logger.setLevel(logging.WARNING)    
+#test_logger.setLevel(logging.INFO)  
+test_logger.setLevel(logging.DEBUG)
 
 def astarLogger():
     return logging.getLogger('AStar')
