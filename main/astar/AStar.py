@@ -104,7 +104,7 @@ class AStar():
             if neighborNode in answerNodes:
                 continue
             
-            newNode = self.__createNeighborNode(node, neighborPosition)
+            newNode = self.__createNeighborNode(node, neighborPosition, endPosition)
             if self.__isNewPathBetterThanOld(newNode, neighborNode, searchNodes, endPosition):
                 self.__removeNodeFromSearch(searchNodes, costPQ, neighborNode)
                 self.__addNodeToSearch(searchNodes, costPQ, newNode)
@@ -117,19 +117,21 @@ class AStar():
             neighborNode = searchNodes[neighborNode]
         return neighborNode
 
-    def __createNeighborNode(self, node, neighborPosition):
+    def __createNeighborNode(self, node, neighborPosition, endPosition):
         costToMoveToNeighbor = Navigator.cost(node.position, neighborPosition)
-        newCost = node.g + costToMoveToNeighbor
+        newCost = self.__f(node.g + costToMoveToNeighbor, neighborPosition, endPosition)
         return Node(neighborPosition, node.position, newCost)
 
     def __isNewPathBetterThanOld(self, newNode, neighborNode, searchNodes, endPosition):
         if neighborNode not in searchNodes:
             return False
-        
-        totalCostNew = self.__f(newNode.g, newNode.position, endPosition)
-        totalCostNeighbor = self.__f(neighborNode.g, neighborNode.position, endPosition)
-        logger.debug(f"totalCostNew < totalCostNeighbor: {totalCostNew} < {totalCostNeighbor}\nNew: {newNode}Neighbor: {neighborNode}")
-        return totalCostNew < totalCostNeighbor
+        logger.debug(f"totalCostNew < totalCostNeighbor: {newNode.g} < {neighborNode.g}\nNew: {newNode}Neighbor: {neighborNode}")
+        return newNode.g < neighborNode.g
+#        
+#        totalCostNew = self.__f(newNode.g, newNode.position, endPosition)
+#        totalCostNeighbor = self.__f(neighborNode.g, neighborNode.position, endPosition)
+#        logger.debug(f"totalCostNew < totalCostNeighbor: {totalCostNew} < {totalCostNeighbor}\nNew: {newNode}Neighbor: {neighborNode}")
+#        return totalCostNew < totalCostNeighbor
 
     def __f(self, costToNode, currentPosition, endPosition):
         return costToNode + self.h(currentPosition, endPosition)
