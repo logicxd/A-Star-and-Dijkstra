@@ -4,16 +4,8 @@ Created on Sat Mar  9 18:04:43 2019
 
 @author: Aung David Moe
 """
-
-from enum import Enum
 import numpy as np
 import operator
-
-class Direction(Enum):
-    NORTH = 1
-    EAST = 2
-    SOUTH = 3
-    WEST = 4
 
 class Navigator():
     @staticmethod

@@ -9,9 +9,9 @@ Created on Tue Apr 16 21:36:39 2019
 import unittest
 import os
 import logging
-from my_logger import logger
+from my_logger import astar_logger
 from my_logger import test_logger
-logger.setLevel(logging.WARNING)  
+astar_logger.setLevel(logging.WARNING)  
 test_logger.setLevel(logging.WARNING)
 
 loader = unittest.TestLoader()

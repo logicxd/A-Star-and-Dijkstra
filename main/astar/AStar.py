@@ -6,7 +6,7 @@ References: https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c
 @author: Aung David Moe
 """
 import heapq
-from my_logger import astarLogger as logger
+from my_logger import astar_logger as logger
 from astar.Navigator import Navigator
 
 class Node():
@@ -36,7 +36,7 @@ class Node():
         return self.__description
     
     def __lt__(self, other):
-        return self.g < other.g    
+        return True if self.g < other.g else self.position[0] < other.position[0] 
     
 class AStar():
     """
@@ -58,7 +58,7 @@ class AStar():
         
         while len(costPQ) > 0:
             node = self.__nextBestNode(costPQ)
-            logger().debug(f"Node: {node}")
+            logger.debug(f"Node: {node}")
             self.__moveFromSearchToAnswer(node, searchNodes, answerNodes)
             
             if node.position == endPosition:
@@ -128,7 +128,7 @@ class AStar():
         
         totalCostNew = self.__f(newNode.g, newNode.position, endPosition)
         totalCostNeighbor = self.__f(neighborNode.g, neighborNode.position, endPosition)
-        logger().debug(f"totalCostNew < totalCostNeighbor: {totalCostNew} < {totalCostNeighbor}\nNew: {newNode}Neighbor: {neighborNode}")
+        logger.debug(f"totalCostNew < totalCostNeighbor: {totalCostNew} < {totalCostNeighbor}\nNew: {newNode}Neighbor: {neighborNode}")
         return totalCostNew < totalCostNeighbor
 
     def __f(self, costToNode, currentPosition, endPosition):
