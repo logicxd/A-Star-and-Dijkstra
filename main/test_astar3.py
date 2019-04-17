@@ -5,7 +5,7 @@ Created on Sun Apr  7 00:50:37 2019
 @author: Aung David Moe
 """
 import unittest
-from my_logger import testLogger as logger
+from my_logger import test_logger as logger
 from astar.AStar import Node 
 from astar.AStar import AStar
 from astar.HeuristicFunctions import manhattan as heuristicFunction
@@ -20,8 +20,8 @@ class Test4by4Astar3(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.setUpSearch()
-        logger().debug(f"\n{cls.search.pathMap}")
-        logger().debug(f"\n{cls.search.path}")
+        logger.debug(f"\n{cls.search.pathMap}")
+        logger.debug(f"\n{cls.search.path}")
 
     @classmethod
     def setUpSearch(cls):
@@ -40,7 +40,7 @@ class Test4by4Astar3(unittest.TestCase):
 
     def testCount(self):
         search = self.search
-        logger().info(f"Nodes searched: {len(search.pathMap)}/{search.totalNodes}")
+        logger.info(f"Nodes searched: {len(search.pathMap)}/{search.totalNodes}")
         self.assertEqual(len(search.pathMap), 16)
    
     def testEndNodeInSolution(self):
@@ -50,7 +50,7 @@ class Test4by4Astar3(unittest.TestCase):
     def testTotalCostToEndNode(self):
         search = self.search
         endNode = search.pathMap[search.endPosition]
-        logger().info(f"Total cost: {endNode.g}")
+        logger.info(f"Total cost: {endNode.g}")
         self.assertEqual(endNode.g, 6)
         
     def testPathToNode(self):

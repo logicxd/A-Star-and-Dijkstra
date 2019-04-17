@@ -15,8 +15,6 @@ class TestMyAIMovements(unittest.TestCase):
                          [0, 1, 0, 0, 0],
                          [1, 1, 0, 0, 0]]
 
-    # neighbors
-    
     def testNeighborsMiddle(self):
         neighbors = Navigator.neighbors((2,2), self.maze5by5)
         self.assertEqual(len(neighbors), 2)

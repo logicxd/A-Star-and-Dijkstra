@@ -5,7 +5,7 @@ Created on Sun Apr  7 21:29:27 2019
 @author: Aung David Moe
 """
 import unittest
-from my_logger import testLogger as logger
+from my_logger import test_logger as logger
 from astar.AStar import Node 
 from astar.AStar import AStar
 
@@ -19,8 +19,8 @@ class Test4by4Dijkstra4(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.setUpSearch()
-        logger().debug(f"\n{cls.search.pathMap}")
-        logger().debug(f"\n{cls.search.path}")
+        logger.debug(f"\n{cls.search.pathMap}")
+        logger.debug(f"\n{cls.search.path}")
 
     @classmethod
     def setUpSearch(cls):
@@ -39,7 +39,7 @@ class Test4by4Dijkstra4(unittest.TestCase):
 
     def testCount(self):
         search = self.search
-        print(f"Nodes searched: {len(search.pathMap)}/{search.totalNodes}")
+        logger.info(f"Nodes searched: {len(search.pathMap)}/{search.totalNodes}")
         self.assertEqual(len(search.pathMap), 11)
    
     def testEndNodeInSolution(self):
@@ -49,7 +49,7 @@ class Test4by4Dijkstra4(unittest.TestCase):
     def testTotalCostToEndNode(self):
         search = self.search
         endNode = search.pathMap[search.endPosition]
-        print(f"Total cost: {endNode.g}")
+        logger.info(f"Total cost: {endNode.g}")
         self.assertEqual(endNode.g, 4)
         
     def testPathToNode(self):
