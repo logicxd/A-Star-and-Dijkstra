@@ -42,7 +42,7 @@ class Test5by5Astar2(unittest.TestCase):
     def testCount(self):
         search = self.search
         logger.info(f"Nodes searched: {len(search.pathMap)}/{search.totalNodes}")
-        self.assertEqual(len(search.pathMap), 20)
+        self.assertEqual(len(search.pathMap), 19)
    
     def testEndNodeInSolution(self):
         search = self.search

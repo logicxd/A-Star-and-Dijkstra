@@ -57,8 +57,8 @@ class AStar():
         answerNodes = set()
         
         while len(costPQ) > 0:
+            logger.debug(f"Priority Queue: {costPQ}")
             node = self.__nextBestNode(costPQ)
-            logger.debug(f"Node: {node}")
             self.__moveFromSearchToAnswer(node, searchNodes, answerNodes)
             
             if node.position == endPosition:
@@ -83,7 +83,7 @@ class AStar():
     def __initializeCostPQ(self, startPosition):
         costPQ = []
         node = Node(startPosition)
-        self.__heapPush(costPQ, node)
+        self.__heapPush(costPQ, node, 0)
         return costPQ
     
     def __initializeSearchNodes(self, startPosition):
@@ -105,7 +105,9 @@ class AStar():
                 continue
             
             newNode = self.__createNeighborNode(node, neighborPosition, endPosition)
-            if self.__isNewPathBetterThanOld(newNode, neighborNode, searchNodes, endPosition):
+            if newNode not in searchNodes:
+                self.__addNodeToSearch(searchNodes, costPQ, newNode, endPosition)
+            elif self.__isNewPathBetterThanOld(newNode, neighborNode, searchNodes, endPosition):
                 self.__removeNodeFromSearch(searchNodes, costPQ, neighborNode)
                 self.__addNodeToSearch(searchNodes, costPQ, newNode)
             elif neighborNode not in searchNodes:
@@ -119,26 +121,22 @@ class AStar():
 
     def __createNeighborNode(self, node, neighborPosition, endPosition):
         costToMoveToNeighbor = Navigator.cost(node.position, neighborPosition)
-        newCost = self.__f(node.g + costToMoveToNeighbor, neighborPosition, endPosition)
+        newCost = node.g + costToMoveToNeighbor
         return Node(neighborPosition, node.position, newCost)
 
     def __isNewPathBetterThanOld(self, newNode, neighborNode, searchNodes, endPosition):
-        if neighborNode not in searchNodes:
-            return False
-        logger.debug(f"totalCostNew < totalCostNeighbor: {newNode.g} < {neighborNode.g}\nNew: {newNode}Neighbor: {neighborNode}")
-        return newNode.g < neighborNode.g
-#        
-#        totalCostNew = self.__f(newNode.g, newNode.position, endPosition)
-#        totalCostNeighbor = self.__f(neighborNode.g, neighborNode.position, endPosition)
-#        logger.debug(f"totalCostNew < totalCostNeighbor: {totalCostNew} < {totalCostNeighbor}\nNew: {newNode}Neighbor: {neighborNode}")
-#        return totalCostNew < totalCostNeighbor
+        totalCostNew = self.__f(newNode.g, newNode.position, endPosition)
+        totalCostNeighbor = self.__f(neighborNode.g, neighborNode.position, endPosition)
+        logger.debug(f"totalCostNew < totalCostNeighbor: {totalCostNew} < {totalCostNeighbor}\nNew: {newNode}Neighbor: {neighborNode}")
+        return totalCostNew < totalCostNeighbor
 
     def __f(self, costToNode, currentPosition, endPosition):
         return costToNode + self.h(currentPosition, endPosition)
 
-    def __addNodeToSearch(self, searchNodes, costPQ, node):
+    def __addNodeToSearch(self, searchNodes, costPQ, node, endPosition):
         searchNodes[node] = node
-        self.__heapPush(costPQ, node)
+        f = self.__f(node.g, node.position, endPosition)
+        self.__heapPush(costPQ, node, f)
         
     def __removeNodeFromSearch(self, searchNodes, costPQ, node):
         del searchNodes[node]
@@ -152,8 +150,8 @@ class AStar():
     
     # Heap Helper Functions
         
-    def __heapPush(self, costPQ, node):
-        heapq.heappush(costPQ, (node.g, node))
+    def __heapPush(self, costPQ, node, priority):
+        heapq.heappush(costPQ, (priority, node))
     
     def __heapPop(self, costPQ):
         return heapq.heappop(costPQ)[1]

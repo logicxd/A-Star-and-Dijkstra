@@ -63,4 +63,3 @@ class Test4by4Dijkstra4(unittest.TestCase):
         
 if __name__ == '__main__':
     unittest.main()
-

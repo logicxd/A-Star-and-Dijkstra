@@ -12,14 +12,18 @@ logger.critical('critical message')
 @author: Aung David Moe
 """
 import logging
-
-# setup AStar logger
+logging.basicConfig(level=logging.DEBUG)
 astar_logger = logging.getLogger('AStar')
-#logger.setLevel(logging.WARNING)  
-astar_logger.setLevel(logging.DEBUG)      
-
-# setup test logger
 test_logger = logging.getLogger('test')
-#test_logger.setLevel(logging.WARNING)    
-#test_logger.setLevel(logging.INFO)  
-test_logger.setLevel(logging.DEBUG)
+
+def setupAStarLogger():
+    astar_logger.setLevel(logging.WARNING)  
+#    astar_logger.setLevel(logging.DEBUG)          
+
+def setupTestLogger():
+    test_logger.setLevel(logging.WARNING)    
+#    test_logger.setLevel(logging.INFO)  
+#    test_logger.setLevel(logging.DEBUG)
+    
+setupAStarLogger()
+setupTestLogger()

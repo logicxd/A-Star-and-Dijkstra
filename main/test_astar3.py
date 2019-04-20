@@ -13,7 +13,7 @@ from astar.HeuristicFunctions import manhattan as heuristicFunction
 class Expando():
     pass
 
-class Test4by4Astar3(unittest.TestCase):    
+class Test4by4Astar3(unittest.TestCase):
     def setUp(self):
         self.search = Test4by4Astar3.search
     

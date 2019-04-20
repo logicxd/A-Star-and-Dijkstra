@@ -41,7 +41,7 @@ class Test4by4Astar4(unittest.TestCase):
     def testCount(self):
         search = self.search
         logger.info(f"Nodes searched: {len(search.pathMap)}/{search.totalNodes}")
-        self.assertEqual(len(search.pathMap), 11)
+        self.assertEqual(len(search.pathMap), 8)
    
     def testEndNodeInSolution(self):
         search = self.search
