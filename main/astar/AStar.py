@@ -104,7 +104,7 @@ class AStar():
             if neighborNode in answerNodes:
                 continue
             
-            newNode = self.__createNeighborNode(node, neighborPosition, endPosition)
+            newNode = self.__createNeighborNode(node, neighborPosition, maze)
             if newNode not in searchNodes:
                 self.__addNodeToSearch(searchNodes, costPQ, newNode, endPosition)
             elif self.__isNewPathBetterThanOld(newNode, neighborNode, searchNodes, endPosition):
@@ -119,8 +119,8 @@ class AStar():
             neighborNode = searchNodes[neighborNode]
         return neighborNode
 
-    def __createNeighborNode(self, node, neighborPosition, endPosition):
-        costToMoveToNeighbor = Navigator.cost(node.position, neighborPosition)
+    def __createNeighborNode(self, node, neighborPosition, maze):
+        costToMoveToNeighbor = Navigator.cost(node.position, neighborPosition, maze)
         newCost = node.g + costToMoveToNeighbor
         return Node(neighborPosition, node.position, newCost)
 

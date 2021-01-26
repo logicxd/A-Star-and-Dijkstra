@@ -28,7 +28,7 @@ class Test5by5Astar2(unittest.TestCase):
         search = Expando()
         search.maze = [[1, 1, 1, 1, 1],
                        [1, 0, 1, 0, 1],
-                       [1, 1, 1, 1, 1],
+                       [1, 1, 0, 1, 1],
                        [0, 1, 0, 1, 0],
                        [1, 1, 1, 1, 1]]
         search.totalNodes = 20
@@ -42,7 +42,7 @@ class Test5by5Astar2(unittest.TestCase):
     def testCount(self):
         search = self.search
         logger.info(f"Nodes searched: {len(search.pathMap)}/{search.totalNodes}")
-        self.assertEqual(len(search.pathMap), 19)
+        self.assertEqual(len(search.pathMap), 16)
    
     def testEndNodeInSolution(self):
         search = self.search
@@ -61,10 +61,10 @@ class Test5by5Astar2(unittest.TestCase):
         self.assertEqual(search.path[1], Node((0, 1)))
         self.assertEqual(search.path[2], Node((0, 2)))
         self.assertEqual(search.path[3], Node((1, 2)))
-        self.assertEqual(search.path[4], Node((2, 2)))
-        self.assertEqual(search.path[5], Node((2, 3)))
-        self.assertEqual(search.path[6], Node((3, 3)))
-        self.assertEqual(search.path[7], Node((4, 3)))
+        self.assertEqual(search.path[4], Node((1, 3)))
+        self.assertEqual(search.path[5], Node((1, 4)))
+        self.assertEqual(search.path[6], Node((2, 4)))
+        self.assertEqual(search.path[7], Node((3, 4)))
         self.assertEqual(search.path[8], Node(search.endPosition))
         
 if __name__ == '__main__':
