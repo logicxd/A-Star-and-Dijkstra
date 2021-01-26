@@ -1,4 +1,4 @@
-# Customizable-A-Star
+# A Star and Dijkstra
 
 Easy to modify A* (and Dijkstra) implementation in Python3.
 
