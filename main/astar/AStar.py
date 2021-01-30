@@ -109,9 +109,10 @@ class AStar():
                 self.__addNodeToSearch(searchNodes, costPQ, newNode, endPosition)
             elif self.__isNewPathBetterThanOld(newNode, neighborNode, searchNodes, endPosition):
                 self.__removeNodeFromSearch(searchNodes, costPQ, neighborNode)
-                self.__addNodeToSearch(searchNodes, costPQ, newNode)
-            elif neighborNode not in searchNodes:
-                self.__addNodeToSearch(searchNodes, costPQ, newNode)
+                self.__addNodeToSearch(searchNodes, costPQ, newNode)\
+            ## Don't think this is needed
+            # elif neighborNode not in searchNodes:
+            #     self.__addNodeToSearch(searchNodes, costPQ, newNode)
 
     def __getNeighborNode(self, neighborPosition, searchNodes):
         neighborNode = Node(neighborPosition)
